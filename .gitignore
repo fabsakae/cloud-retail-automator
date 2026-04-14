@@ -1,0 +1,17 @@
+# Binários e plugins do Terraform
+.terraform/
+.terraform.lock.hcl
+
+# Arquivos de estado (podem conter senhas)
+*.tfstate
+*.tfstate.*
+
+# Variáveis sensíveis
+*.tfvars
+*.tfvars.json
+
+# Logs
+*.log
+nohup.out.terraform/
+*.tfstate
+.terraform.lock.hcl
