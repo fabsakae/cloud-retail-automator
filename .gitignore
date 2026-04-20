@@ -15,3 +15,8 @@
 nohup.out.terraform/
 *.tfstate
 .terraform.lock.hcl
+nohup.out
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
