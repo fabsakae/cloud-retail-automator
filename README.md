@@ -1,7 +1,7 @@
 # Cloud-Retail Automator 
 
 ##  Sobre o Projeto
-O **Cloud-Retail Automator** é uma solução de infraestrutura como código (IaC) e observabilidade projetada para resolver problemas reais de supply chain e varejo. [cite_start]Unindo mais de 20 anos de experiência em gestão de operações comerciais com as melhores práticas de Engenharia de Confiabilidade (SRE) e DevSecOps.
+O **Cloud-Retail Automator** é uma solução de infraestrutura como código (IaC) e observabilidade projetada para resolver problemas reais de supply chain e varejo. Unindo mais de 20 anos de experiência em gestão de operações comerciais com as melhores práticas de Engenharia de Confiabilidade (SRE) e DevSecOps.
 
 O sistema monitora níveis de estoque em tempo real e utiliza uma arquitetura orientada a eventos para disparar notificações inteligentes e gerar dashboards de performance.
 

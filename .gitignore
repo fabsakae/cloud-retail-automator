@@ -20,3 +20,4 @@ nohup.out
 *.tfstate
 *.tfstate.backup
 *.tfvars
+*.credentials
