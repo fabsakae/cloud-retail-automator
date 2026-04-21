@@ -10,49 +10,53 @@ Abaixo, a representação visual da infraestrutura provisionada via Terraform na
 
 ```mermaid
 graph TB
-    subgraph "Source & CI/CD"
+    subgraph CICD["Fase 6: CI/CD Pipeline - GitHub Actions"]
         GH[GitHub Repository]
         CKV[Checkov: Security Scan]
         TF[Terraform Apply]
     end
 
-    subgraph "AWS Cloud"
-        subgraph "VPC"
-            direction TB
-            subgraph "Public Subnet"
+    subgraph AWS["AWS Cloud"]
+        subgraph VPC["Fase 2: VPC"]
+            subgraph PUB["Public Subnet"]
                 NAT[NAT Gateway]
-                CF[Amazon CloudFront]
-                S3[(S3: Static Page)]
+                CF[CloudFront CDN]
+                S3[(S3: Site estatico)]
             end
-            
-            subgraph "Private Subnet"
-                Lambda[AWS Lambda: Business Logic]
-                DB[(Amazon DynamoDB: Inventory)]
+            subgraph PRIV["Private Subnet"]
+                Lambda[AWS Lambda]
+                DB[(DynamoDB: Inventario)]
+                KMS[KMS: Criptografia]
             end
         end
-
-        subgraph "Observability Layer (SRE)"
-            CW[CloudWatch Logs & Metrics]
-            SNS[SNS Topic: Alertas]
+        subgraph OBS["Fase 4: Observabilidade - SRE"]
+            CW[CloudWatch]
+            SNS[SNS: Alertas]
             Dash[CloudWatch Dashboard]
         end
     end
 
-    subgraph "External Visualization"
+    subgraph LOCAL["Fase 5: Local via Docker"]
         Grafana[Grafana Dashboard]
     end
 
+    User([Usuario Final])
+    Admin([Administrador])
+
     GH --> CKV
-    CKV -- "Passed" --> TF
+    CKV -- Passou --> TF
     TF --> VPC
-    Lambda -- "Leitura/Escrita" --> DB
-    Lambda -- "Logs & Métricas" --> CW
-    DB -- "Métricas de Performance" --> CW
-    S3 -- "Content Delivery" --> CF
-    CF -- "Static UI" --> User[Usuário Final]
-    CW -- "Alarme" --> SNS
-    SNS -- "E-mail/Notificação" --> Admin[Administrador]
-    CW -- "Fonte de Dados (API)" --> Grafana
+    TF --> OBS
+    Lambda -- Leitura/Escrita --> DB
+    KMS -- Criptografa --> DB
+    Lambda -- Logs e metricas --> CW
+    DB -- Metricas --> CW
+    S3 -- Fase 3: CDN --> CF
+    CF --> User
+    CW -- Alarme --> SNS
+    CW --> Dash
+    SNS -- E-mail --> Admin
+    CW -- API --> Grafana
 
 ```
 
